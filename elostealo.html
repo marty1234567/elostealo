@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Random Line Generator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+        #header {
+            padding: 20px;
+            background-color: rgba(0, 0, 0, 0.5); /* 50% transparent black background */
+            color: white;
+            text-align: center; /* Center align the header content */
+            border-radius: 10px; /* Rounded corners for the header */
+            max-width: 100%; /* Ensure header doesn't extend past the screen width */
+        }
+        #header h1 {
+            font-size: 28px; /* Larger font size for the title */
+        }
+        #description {
+            font-weight: normal; /* Remove bold from description */
+        }
+        #content {
+            margin-top: 20px; /* Add space below the header */
+        }
+        button {
+            padding: 10px 20px;
+            margin: 10px;
+            cursor: pointer;
+            border: 1px solid #ccc; /* Add a keyline under the buttons */
+        }
+        #output {
+            margin: 20px;
+        }
+        #type {
+            font-style: italic; /* Italicize the type */
+            font-size: 90%; /* Slightly smaller font size for type */
+        }
+        .title {
+            text-transform: uppercase; /* Convert title to all caps */
+            font-size: 18px; /* Larger font size for the title */
+            font-weight: bold; /* Bold for the database titles */
+        }
+        #description-above-buttons {
+            font-style: italic; /* Italicized description */
+            font-size: 14px; /* Smaller font size for description */
+            margin-bottom: 10px; /* Add space below the description */
+        }
+    </style>
+</head>
+<body>
+    <div id="header">
+        <h1>Random Line Generator</h1>
+        <p id="description">Add your description here</p>
+    </div>
+    <div id="content">
+        <p id="description-above-buttons">Small and italicized description goes here</p>
+        <button id="btn250" onclick="generateRandomLine(250)">250</button>
+        <button id="btn500" onclick="generateRandomLine(500)">500</button>
+        <button id="btn750" onclick="generateRandomLine(750)">750</button>
+        <div id="output">
+            <p><span id="type"></span></p>
+            <p class="title"><span id="title"></span></p>
+            <p><span id="lineDescription"></span></p>
+        </div>
+    </div>
+
+    <script>
+        const database = [
+            { elo: 250, type: "Type 1", title: "Line 250-1", description: "This is line 250-1 description." },
+            { elo: 250, type: "Type 2", title: "Line 250-2", description: "This is line 250-2 description." },
+            { elo: 250, type: "Type 3", title: "Line 250-3", description: "This is line 250-3 description." },
+            { elo: 500, type: "Type 1", title: "Line 500-1", description: "This is line 500-1 description." },
+            { elo: 500, type: "Type 2", title: "Line 500-2", description: "This is line 500-2 description." },
+            { elo: 500, type: "Type 3", title: "Line 500-3", description: "This is line 500-3 description." },
+            { elo: 750, type: "Type 1", title: "Line 750-1", description: "This is line 750-1 description." },
+            { elo: 750, type: "Type 2", title: "Line 750-2", description: "This is line 750-2 description." },
+            { elo: 750, type: "Type 3", title: "Line 750-3", description: "This is line 750-3 description." }
+        ];
+
+        function generateRandomLine(eloValue) {
+            const filteredDatabase = database.filter(line => line.elo === eloValue);
+            if (filteredDatabase.length === 0) {
+                document.getElementById("type").textContent = "";
+                document.getElementById("title").textContent = "No data available for selected elo.";
+                document.getElementById("lineDescription").textContent = "";
+            } else {
+                const randomIndex = Math.floor(Math.random() * filteredDatabase.length);
+                const line = filteredDatabase[randomIndex];
+                document.getElementById("type").textContent = line.type;
+                document.getElementById("title").textContent = line.title;
+                document.getElementById("lineDescription").textContent = line.description;
+            }
+        }
+    </script>
+</body>
+</html>
